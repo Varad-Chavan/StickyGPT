@@ -1,7 +1,9 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+const INTRO_STORAGE_KEY = "white-flower-intro-seen";
 
 const scenes = [
   { image: "/scene-01-return.png", number: "01", title: "The start", line: "A Victorious King" },
@@ -57,23 +59,73 @@ function StoryScene({ scene }: { scene: (typeof scenes)[number] }) {
 }
 
 export default function Story() {
-  return <main className="story">
-    {scenes.map((scene) => <StoryScene scene={scene} key={scene.number} />)}
-    <section className="loopScene">
+  const [introState, setIntroState] = useState<"checking" | "open" | "closed">("checking");
+  const [isClosing, setIsClosing] = useState(false);
+
+  useEffect(() => {
+    if (!window.localStorage.getItem(INTRO_STORAGE_KEY)) {
+      setIntroState("open");
+      document.body.classList.add("introIsOpen");
+    } else {
+      setIntroState("closed");
+    }
+
+    return () => document.body.classList.remove("introIsOpen");
+  }, []);
+
+  function enterStory() {
+    window.localStorage.setItem(INTRO_STORAGE_KEY, "true");
+    setIsClosing(true);
+    window.setTimeout(() => {
+      document.body.classList.remove("introIsOpen");
+      setIntroState("closed");
+    }, 800);
+  }
+
+  return <main className={`story ${introState === "checking" ? "storyLoading" : ""}`}>
+    {introState === "open" && <motion.div
+      className="introOverlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="intro-title"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: isClosing ? 0 : 1 }}
+      transition={{ duration: isClosing ? 0.8 : 0.45, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div className="introFrame">
+        <div className="introMark" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </div>
+        <p className="introKicker">An Experience</p>
+        <h1 id="intro-title">Happy Birthday <em>Arya</em></h1>
+        <p className="introNote">Click on Enter to unravel the story.</p>
+        <button className="introButton" type="button" onClick={enterStory}>
+          <span>Enter the story</span>
+          <span aria-hidden="true">&#8594;</span>
+        </button>
+        <p className="introMeta">THE WHITE FLOWER <span>·</span> 2026</p>
+      </div>
+    </motion.div>}
+    {introState !== "checking" && <>
+      {scenes.map((scene) => <StoryScene scene={scene} key={scene.number} />)}
+      <section className="loopScene">
       <div className="loopHeading"><span>11</span><h1>And Begins the Cycle</h1><br/><p>Puck The Flower ·Placed On Ear ·Attained The Bliss  ·Burial To Chest</p></div>
       <div className="loopWindow" aria-label="The king repeats the cycle">
         <div className="loopTrack">
           {[...loopCards, ...loopCards].map((image, index) => <img src={image} alt="" className="loopCard" key={`${image}-${index}`} />)}
         </div>
       </div>
-    </section>
-    {endingScenes.map((scene) => <StoryScene scene={scene} key={scene.number} />)}
-    <section className="storyTime" aria-label="Time in the story">
-      <div className="timeBlock">
-        <h1>😊</h1>
-        <h1>Happy Birthday Once Again</h1>
-        <p>Made by Varad Chavan with ❤️</p>
-      </div>
-    </section>
+      </section>
+      {endingScenes.map((scene) => <StoryScene scene={scene} key={scene.number} />)}
+      <section className="storyTime" aria-label="Time in the story">
+        <div className="timeBlock">
+          <h1>😊</h1>
+          <h1>Happy Birthday Once Again</h1>
+          <p>Made by Varad Chavan with ❤️</p>
+        </div>
+      </section>
+    </>}
   </main>;
 }
