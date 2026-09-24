@@ -6,20 +6,20 @@ import { useEffect, useRef, useState } from "react";
 const INTRO_STORAGE_KEY = "white-flower-intro-seen";
 
 const scenes = [
-  { image: "/scene-01-return.png", number: "01", title: "The start", line: "A Victorious King" },
-  { image: "/scene-02-tree.png", number: "02", title: "Return to...", line: "A mysterious tree waiting for him in the way" },
-  { image: "/scene-03-offering.png", number: "03", title: "The lively flower", line: "A single flower rested on the branch." },
-  { image: "/scene-04-taken.png", number: "04", title: "Return to the Palace", line: "He took it with him." },
-  { image: "/scene-05-queen.png", number: "05", title: "The queen", line: "He gave her the flower." },
+  { image: "/scene-01-return.png", number: "01", title: "The War", line: "A Victorious King that won a tough war" },
+  { image: "/scene-02-tree.png", number: "02", title: "Return to Palace", line: "A mysterious tree waiting for him in the way" },
+  { image: "/scene-03-offering.png", number: "03", title: "The lively flower", line: "The tree offering him flower ?" },
+  { image: "/scene-04-taken.png", number: "04", title: "Flower Seems Special  ", line: "He took it with him." },
+  { image: "/scene-05-queen.png", number: "05", title: "To the queen", line: "He gave her the flower." },
   { image: "/scene-06-ear.png", number: "06", title: "A quiet gesture", line: "She placed it above his ear." },
   { image: "/scene-07-release.png", number: "07", title: "Unburdened", line: "The weight fell away." },
-  { image: "/scene-08-utopia.png", number: "08", title: "Utopia", line: "A state of bliss." },
+  { image: "/scene-08-utopia.png", number: "08", title: "Euphoria ", line: "Doesn't seem real" },
   { image: "/scene-09-wilted.png", number: "09", title: "Back to Reality", line: "The flower had lost its vibrancy." },
   { image: "/scene-10-chest.png", number: "10", title: "The Burial", line: "He kept what had died." },
 ];
 
 const endingScenes = [
-  { image: "/scene-11-realization.png", number: "11", title: "The realization", line: "He Realized The Loop" },
+  { image: "/scene-11-realization.png", number: "11", title: "The sudden realization", line: "He Realized The Loop" },
   { image: "/scene-12-dead-flower.png", number: "12", title: "The dead flower", line: "Its fading body told the truth." },
   { image: "/scene-13-true.png", number: "13", title: "....", line: "..........." },
   { image: "/scene-14-end.png", number: "14", title: "The end", line: "................" },
@@ -117,7 +117,7 @@ export default function Story() {
     {introState !== "checking" && <>
       {scenes.map((scene) => <StoryScene scene={scene} key={scene.number} />)}
       <section className="loopScene">
-      <div className="loopHeading"><span>11</span><h1>And Begins the Cycle</h1><br/><p>Puck The Flower ·Placed On Ear ·Attained The Bliss  ·Burial To Chest</p></div>
+      <div className="loopHeading"><span>11</span><h1>And the cycle has begun</h1><br/><p>Puck The Flower ·Placed On Ear ·Attained The Bliss  ·Burial To Chest</p></div>
       <div className="loopWindow" aria-label="The king repeats the cycle">
         <div className="loopTrack">
           {[...loopCards, ...loopCards].map((image, index) => <img src={image} alt="" className="loopCard" key={`${image}-${index}`} />)}
