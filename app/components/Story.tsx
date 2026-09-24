@@ -92,6 +92,12 @@ export default function Story() {
       animate={{ opacity: isClosing ? 0 : 1 }}
       transition={{ duration: isClosing ? 0.8 : 0.45, ease: [0.22, 1, 0.36, 1] }}
     >
+      <div className="confettiBurst confettiBurstLeft" aria-hidden="true">
+        {Array.from({ length: 14 }, (_, index) => <span key={index} />)}
+      </div>
+      <div className="confettiBurst confettiBurstRight" aria-hidden="true">
+        {Array.from({ length: 14 }, (_, index) => <span key={index} />)}
+      </div>
       <div className="introFrame">
         <div className="introMark" aria-hidden="true">
           <span />
@@ -99,7 +105,7 @@ export default function Story() {
           <span />
         </div>
         <p className="introKicker">An Experience</p>
-        <h1 id="intro-title">Happy Birthday <em>Arya</em></h1>
+        <h1 id="intro-title">Happy Birthday <em>Name</em></h1>
         <p className="introNote">Click on Enter to unravel the story.</p>
         <button className="introButton" type="button" onClick={enterStory}>
           <span>Enter the story</span>

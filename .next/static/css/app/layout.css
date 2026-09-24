@@ -72,6 +72,91 @@ body.introIsOpen {
   display: grid;
   justify-items: center;
   text-align: center;
+  animation: introFrameIn 1.1s 180ms both cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes introFrameIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.confettiBurst {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.confettiBurstLeft {
+  left: 14%;
+  transform: rotate(-22deg);
+}
+
+.confettiBurstRight {
+  right: 14%;
+  transform: scaleX(-1) rotate(-22deg);
+}
+
+.confettiBurst span {
+  position: absolute;
+  display: block;
+  width: 7px;
+  height: 14px;
+  opacity: 0;
+  background: #d9b98a;
+  animation: confettiFly 1.6s 360ms both cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.confettiBurst span:nth-child(3n) {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #f3f0e8;
+}
+
+.confettiBurst span:nth-child(3n + 1) {
+  background: #a8b8a0;
+  transform: rotate(34deg);
+}
+
+.confettiBurst span:nth-child(1) { --x: -86px; --y: -124px; --r: -40deg; }
+.confettiBurst span:nth-child(2) { --x: -48px; --y: -92px; --r: 28deg; }
+.confettiBurst span:nth-child(3) { --x: -18px; --y: -142px; --r: 72deg; }
+.confettiBurst span:nth-child(4) { --x: 24px; --y: -102px; --r: -22deg; }
+.confettiBurst span:nth-child(5) { --x: 62px; --y: -152px; --r: 48deg; }
+.confettiBurst span:nth-child(6) { --x: 98px; --y: -76px; --r: 82deg; }
+.confettiBurst span:nth-child(7) { --x: 132px; --y: -118px; --r: -62deg; }
+.confettiBurst span:nth-child(8) { --x: 166px; --y: -48px; --r: 16deg; }
+.confettiBurst span:nth-child(9) { --x: 202px; --y: -88px; --r: 68deg; }
+.confettiBurst span:nth-child(10) { --x: 236px; --y: -28px; --r: -36deg; }
+.confettiBurst span:nth-child(11) { --x: 270px; --y: -62px; --r: 42deg; }
+.confettiBurst span:nth-child(12) { --x: 306px; --y: -8px; --r: -72deg; }
+.confettiBurst span:nth-child(13) { --x: 342px; --y: -38px; --r: 24deg; }
+.confettiBurst span:nth-child(14) { --x: 378px; --y: 14px; --r: 58deg; }
+
+@keyframes confettiFly {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg) scale(0.4);
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(1);
+  }
 }
 
 .introMark {
@@ -330,6 +415,11 @@ img {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .introFrame,
+  .confettiBurst span {
+    animation: none;
   }
 }
 
