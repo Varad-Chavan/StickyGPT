@@ -105,7 +105,7 @@ export default function Story() {
           <span />
         </div>
         <p className="introKicker">An Experience</p>
-        <h1 id="intro-title">Happy Birthday <em>Name</em></h1>
+        <h1 id="intro-title">Happy Birthday <em>Arya</em></h1>
         <p className="introNote">Click on Enter to unravel the story.</p>
         <button className="introButton" type="button" onClick={enterStory}>
           <span>Enter the story</span>
